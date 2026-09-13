@@ -21,6 +21,15 @@ def test_prepend_adds_value_to_empty_list():
     assert linked_list.length == 1
 
 
+def test_insert_adds_value_to_empty_list():
+    linked_list = LinkedList()
+
+    linked_list.insert("first")
+
+    assert str(linked_list) == "first"
+    assert linked_list.length == 1
+
+
 def test_insert_supports_start_middle_and_end_positions():
     linked_list = LinkedList("b", "d")
 

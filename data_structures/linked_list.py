@@ -24,12 +24,12 @@ class LinkedList:
             self.length += 1
             
     def insert(self, value, position=None):
+        if position is None:
+            position = self.length
+
         if position == 0:
             self.prepend(value)
             return
-        
-        if position is None:
-            position = self.length
         
         if not 0 <= position <= self.length:
             raise IndexError("insert position is out of range")
@@ -80,5 +80,4 @@ class LinkedList:
             item_list.append(str(node.value))
             node = node.next
         return " -> ".join(item_list)
-            
             
