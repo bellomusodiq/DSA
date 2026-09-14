@@ -5,7 +5,7 @@ import pytest
 from data_structures.linked_list import LinkedList
 
 
-Solution = import_module("algorithms.23_merge_k_sorted_linked_list").Solution
+Solution = import_module("algorithms.23_merge_k_sorted_linked_lists").Solution
 
 
 def values_from(head):
