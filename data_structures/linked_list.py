@@ -11,6 +11,7 @@ class LinkedList:
     
     def __init__(self, *args):
         self.head = None
+        self.tail = None
         self.length = 0
         
         previous_node = None
@@ -20,6 +21,7 @@ class LinkedList:
                 self.head = node
             else:
                 previous_node.next = node
+            self.tail = node
             previous_node = node
             self.length += 1
             
@@ -42,6 +44,9 @@ class LinkedList:
         node.next = new_node
         self.length += 1
         
+        if new_node.next is None:
+            self.tail = new_node
+        
     def get(self, position):
         
         if not 0 <= position < self.length:
@@ -55,6 +60,16 @@ class LinkedList:
     def prepend(self, value):
         self.head = LinkedListNode(value, next_node=self.head)
         self.length += 1
+        if self.tail is None:
+            self.tail = self.head
+            
+    def append(self, value):
+        if self.length == 0:
+            self.prepend(value)
+            return
+        self.tail.next = LinkedListNode(value)
+        self.tail = self.tail.next
+        self.length += 1
         
     def delete(self, position):
         
@@ -67,10 +82,15 @@ class LinkedList:
             node = self.head
             for _ in range(1, position):
                 node = node.next
+                
                
             node.next = node.next.next
-            
         self.length -= 1
+        
+        if self.length == 0:
+            self.tail = None
+        elif position == self.length:
+            self.tail = node
             
             
     def __str__(self):

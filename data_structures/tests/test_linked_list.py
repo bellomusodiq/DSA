@@ -19,6 +19,30 @@ def test_prepend_adds_value_to_empty_list():
 
     assert str(linked_list) == "first"
     assert linked_list.length == 1
+    assert linked_list.tail is linked_list.head
+
+
+def test_append_adds_value_to_empty_list():
+    linked_list = LinkedList()
+
+    linked_list.append("first")
+
+    assert linked_list.head.value == "first"
+    assert linked_list.length == 1
+    assert linked_list.tail is linked_list.head
+
+
+def test_append_adds_values_to_the_end_of_the_list():
+    linked_list = LinkedList("a", "b")
+
+    linked_list.append("c")
+    linked_list.append("d")
+
+    assert linked_list.length == 4
+    assert linked_list.get(2) == "c"
+    assert linked_list.get(3) == "d"
+    assert linked_list.tail.value == "d"
+    assert linked_list.tail.next is None
 
 
 def test_insert_adds_value_to_empty_list():
@@ -28,6 +52,23 @@ def test_insert_adds_value_to_empty_list():
 
     assert str(linked_list) == "first"
     assert linked_list.length == 1
+    assert linked_list.tail is linked_list.head
+
+
+def test_tail_tracks_append_and_deletion():
+    linked_list = LinkedList("a", "b")
+
+    linked_list.insert("c")
+    assert linked_list.tail.value == "c"
+    assert linked_list.tail.next is None
+
+    linked_list.delete(2)
+    assert linked_list.tail.value == "b"
+    assert linked_list.tail.next is None
+
+    linked_list.delete(1)
+    linked_list.delete(0)
+    assert linked_list.tail is None
 
 
 def test_insert_supports_start_middle_and_end_positions():
