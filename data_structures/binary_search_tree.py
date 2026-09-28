@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 
 class Node:
@@ -51,6 +51,45 @@ class BinarySearchTree:
             if value > current.value:
                 current = current.right        
         return False
+    
+    def inorder(self):
+        values = []
+        self._inorder(self.root, values)
+        return values
+    
+    def _inorder(self, node: Node, values: List[int]):
+        if node is None:
+            return
+        self._inorder(node.left, values)
+        values.append(node.value)
+        self._inorder(node.right, values)
+        
+    def preorder(self):
+        values = []
+        self._preorder(self.root, values)
+        return values
+    
+    def _preorder(self, node: Node, values: List[int]):
+        if node is None:
+            return
+        
+        values.append(node.value)
+        self._preorder(node.left, values)
+        self._preorder(node.right, values)
+        
+    def postorder(self):
+        values = []
+        self._postorder(self.root, values)
+        
+        return values
+    
+    def _postorder(self, node: Node, values: List[int]):
+        if node is None:
+            return
+        
+        self._postorder(node.left, values)
+        self._postorder(node.right, values)
+        values.append(node.value)
     
     def __len__(self):
         return self.len
