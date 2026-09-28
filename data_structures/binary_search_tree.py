@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Optional
 
 
 class Node:
@@ -11,14 +11,11 @@ class Node:
 class BinarySearchTree:
     
     def __init__(self):
-        
         self.root = None
-        self.len = 0
         
     def insert(self, value: int) -> None:
         if self.root is None:
             self.root = Node(value=value)
-            self.len += 1
             return
         
         current = self.root
@@ -27,13 +24,11 @@ class BinarySearchTree:
             if value < current.value:
                 if current.left is None:
                     current.left = Node(value=value)
-                    self.len += 1
                     return
                 current = current.left
             elif value > current.value:
                 if current.right is None:
                     current.right = Node(value=value)
-                    self.len += 1
                     return
                 current = current.right
             else:
@@ -91,21 +86,54 @@ class BinarySearchTree:
         self._postorder(node.right, values)
         values.append(node.value)
         
-    def min(self):
-        current = self.root
+    def min(self, node: Optional[Node] = None) -> Optional[int]:
+        current = node if node is not None else self.root
+        
+        if current is None:
+            return
         
         while current.left:
             current = current.left
             
         return current.value
     
-    def max(self):
-        current = self.root
+    def max(self, node: Optional[Node] = None) -> Optional[int]:
+        current = node if node is not None else self.root 
+        if current is None:
+            return
         
         while current.right:
             current = current.right
             
         return current.value
     
-    def __len__(self):
-        return self.len
+    def delete(self, value: int) -> None:
+        self.root = self._delete(self.root, value)
+        
+    def _delete(self, node: Node, value: int) -> Optional[Node]:
+        if node is None:
+            return None
+        
+        if value < node.value:
+            node.left = self._delete(node.left, value)
+            
+        elif value > node.value:
+            node.right = self._delete(node.right, value)
+            
+        else:
+            # Case 1: No right child
+            if node.right is None:
+                return node.left
+            
+            # Case 2: No left child
+            if node.left is None:
+                return node.right
+            # Case 3: Both children
+            successor = self.min(node.right)
+            
+            node.value = successor
+            
+            node.right = self._delete(node.right, successor)
+            
+        return node
+        

@@ -9,8 +9,7 @@ def test_binary_search_tree_insert():
     for num in nums:
         bst.insert(num)
         
-    assert len(bst) == len(nums)
-    
+
 @pytest.mark.parametrize(
     "nums, value, expected",
     [
@@ -25,7 +24,6 @@ def test_binary_search_tree_search(nums, value, expected):
     for num in nums:
         bst.insert(num)
         
-    assert len(bst) == len(nums)
     assert bst.search(value) == expected
     
 @pytest.mark.parametrize(
@@ -42,7 +40,6 @@ def test_inorder_traversal(nums, expected):
     for num in nums:
         bst.insert(num)
         
-    assert len(bst) == len(nums)
     assert bst.inorder() == expected
     
 @pytest.mark.parametrize(
@@ -59,7 +56,6 @@ def test_preorder_traversal(nums, expected):
     for num in nums:
         bst.insert(num)
         
-    assert len(bst) == len(nums)
     assert bst.preorder() == expected
 
 
@@ -77,7 +73,6 @@ def test_postorder_traversal(nums, expected):
     for num in nums:
         bst.insert(num)
 
-    assert len(bst) == len(nums)
     assert bst.postorder() == expected
 
 
@@ -95,6 +90,41 @@ def test_min_and_max(nums, expected_min, expected_max):
     for num in nums:
         bst.insert(num)
 
-    assert len(bst) == len(nums)
     assert bst.min() == expected_min
     assert bst.max() == expected_max
+
+
+def test_min_and_max_on_empty_tree():
+    bst = BinarySearchTree()
+
+    assert bst.min() is None
+    assert bst.max() is None
+
+
+@pytest.mark.parametrize(
+    "nums, value, expected",
+    [
+        ([5, 3, 7], 3, [5, 7]),
+        ([5, 3, 7, 6], 7, [3, 5, 6]),
+        ([5, 3, 7, 6, 8], 5, [3, 6, 7, 8]),
+        ([5], 5, []),
+    ],
+)
+def test_binary_search_tree_delete(nums, value, expected):
+    bst = BinarySearchTree()
+    for num in nums:
+        bst.insert(num)
+
+    bst.delete(value)
+
+    assert bst.inorder() == expected
+
+
+def test_binary_search_tree_delete_missing_value_does_not_change_tree():
+    bst = BinarySearchTree()
+    for value in [5, 3, 7]:
+        bst.insert(value)
+
+    bst.delete(4)
+
+    assert bst.inorder() == [3, 5, 7]
