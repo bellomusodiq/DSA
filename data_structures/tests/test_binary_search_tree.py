@@ -29,38 +29,38 @@ def test_binary_search_tree_search(nums, value, expected):
     assert bst.search(value) == expected
     
 @pytest.mark.parametrize(
-    "nums",
+    "nums, expected",
     [
-        [5, 4, 7, 8],
-        [],
-        [1, 2, 3, 4, 5],
-        [3]
+        ([5, 4, 7, 8], [4, 5, 7, 8]),
+        ([], []),
+        ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+        ([3], [3]),
     ]
 )
-def test_inorder_traversal(nums):
+def test_inorder_traversal(nums, expected):
     bst = BinarySearchTree()
     for num in nums:
         bst.insert(num)
         
     assert len(bst) == len(nums)
-    assert bst.inorder() == sorted(nums)
+    assert bst.inorder() == expected
     
 @pytest.mark.parametrize(
-    "nums",
+    "nums, expected",
     [
-        [5, 4, 7, 8],
-        [],
-        [1, 2, 3, 4, 5],
-        [3]
+        ([5, 4, 7, 8], [5, 4, 7, 8]),
+        ([], []),
+        ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+        ([3], [3]),
     ]
 )
-def test_preorder_traversal(nums):
+def test_preorder_traversal(nums, expected):
     bst = BinarySearchTree()
     for num in nums:
         bst.insert(num)
         
     assert len(bst) == len(nums)
-    assert bst.preorder() == nums
+    assert bst.preorder() == expected
 
 
 @pytest.mark.parametrize(
@@ -79,4 +79,22 @@ def test_postorder_traversal(nums, expected):
 
     assert len(bst) == len(nums)
     assert bst.postorder() == expected
-    
+
+
+@pytest.mark.parametrize(
+    "nums, expected_min, expected_max",
+    [
+        ([5, 4, 7, 8], 4, 8),
+        ([1, 2, 3, 4, 5], 1, 5),
+        ([3], 3, 3),
+        ([-5, 0, 8, -10, 2], -10, 8),
+    ]
+)
+def test_min_and_max(nums, expected_min, expected_max):
+    bst = BinarySearchTree()
+    for num in nums:
+        bst.insert(num)
+
+    assert len(bst) == len(nums)
+    assert bst.min() == expected_min
+    assert bst.max() == expected_max

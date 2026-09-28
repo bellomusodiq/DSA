@@ -90,6 +90,22 @@ class BinarySearchTree:
         self._postorder(node.left, values)
         self._postorder(node.right, values)
         values.append(node.value)
+        
+    def min(self):
+        current = self.root
+        
+        while current.left:
+            current = current.left
+            
+        return current.value
+    
+    def max(self):
+        current = self.root
+        
+        while current.right:
+            current = current.right
+            
+        return current.value
     
     def __len__(self):
         return self.len
