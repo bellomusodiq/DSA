@@ -45,6 +45,22 @@ def test_inorder_traversal(nums, expected):
 @pytest.mark.parametrize(
     "nums, expected",
     [
+        ([5, 4, 7, 8], [4, 5, 7, 8]),
+        ([], []),
+        ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+        ([3], [3]),
+    ]
+)
+def test_inorder_traversal_recursive(nums, expected):
+    bst = BinarySearchTree()
+    for num in nums:
+        bst.insert(num)
+        
+    assert bst.inorder_recursive() == expected
+    
+@pytest.mark.parametrize(
+    "nums, expected",
+    [
         ([5, 4, 7, 8], [5, 4, 7, 8]),
         ([], []),
         ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),

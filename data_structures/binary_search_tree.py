@@ -59,6 +59,20 @@ class BinarySearchTree:
         values.append(node.value)
         self._inorder(node.right, values)
         
+    def inorder_recursive(self, node=None, result=None):
+        if result is None:
+            result = []
+            node = self.root
+            
+        if node is None:
+            return result
+        
+        self.inorder_recursive(node.left, result)
+        result.append(node.value)
+        self.inorder_recursive(node.right, result)
+        
+        return result
+
     def preorder(self):
         values = []
         self._preorder(self.root, values)
