@@ -37,3 +37,6 @@ class Queue:
             return None
         item = self.list.head
         return item.value
+    
+    def __str__(self):
+        return str(self.list)
