@@ -9,6 +9,6 @@ class Solution:
         for i, c in enumerate(strs[0]):
             for str_ in strs[1:]:
                 if len(str_) == i or str_[i] != c:
-                    return strs[:i]
+                    return str_[:i]
                 
         return strs[0]
